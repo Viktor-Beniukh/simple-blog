@@ -2,6 +2,7 @@ from PIL import Image
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse
 
 
 class Author(AbstractUser):
@@ -24,6 +25,10 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.user}"
+
+    @staticmethod
+    def get_absolute_url():
+        return reverse("blog:index")
 
     def save(
         self,
