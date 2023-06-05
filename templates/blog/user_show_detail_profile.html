@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Show Profile{% endblock %}
+
+{% block content %}
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-5"></div>
+
+      <div class="col-md-7">
+        <h1>User Profile...</h1>
+        <br><br><br>
+
+        <div class="card mb-3" style="max-width: 900px;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="{{ page_user.image.url }}" alt="...">
+            </div>
+
+            <div class="col-md-2"></div>
+
+            <div class="col-md-6">
+              <div class="card-body">
+                <h5 class="card-title">
+                  {{ page_user.user.first_name }} {{ page_user.user.last_name }}
+                </h5>
+                <p>{{ page_user.user.email }}</p>
+
+                {% if page_user.youtube %}
+                    <a href="{{ page_user.youtube }}" target="_blank">
+                      <img src="{% static 'images/youtube.png' %}" alt="" style="width: 25px">
+                    </a>&#8194;
+                {% endif %}
+
+                {% if page_user.facebook %}
+                    <a href="{{ page_user.facebook }}" target="_blank">
+                      <img src="{% static 'images/facebook.png' %}" alt="" style="width: 25px">
+                    </a>&#8194;
+                {% endif %}
+
+                {% if page_user.instagram %}
+                    <a href="{{ page_user.instagram }}" target="_blank">
+                      <img src="{% static 'images/instagram.png' %}" alt="" style="width: 25px">
+                    </a>&#8194;
+                {% endif %}
+
+                {% if page_user.twitter %}
+                    <a href="{{ page_user.twitter }}" target="_blank">
+                      <img src="{% static 'images/twitter.png' %}" alt="" style="width: 25px">
+                    </a>&#8194;
+                {% endif %}
+
+                {% if page_user.telegram %}
+                    <a href="{{ page_user.telegram }}" target="_blank">
+                      <img src="{% static 'images/telegram.png' %}" alt="" style="width: 25px">
+                    </a>
+                {% endif %}
+                <br><br>
+
+                <h5 class="card-title">About me</h5>
+                {{ page_user.bio }}
+
+                <p class="card-text"></p>
+
+                <p class="card-text"><small class="text-muted"></small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

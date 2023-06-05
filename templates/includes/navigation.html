@@ -1,0 +1,82 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-blue fixed-top">&#8195;&#8195;
+  <a class="navbar-brand mr-5" href="#"><strong>My blog</strong></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'blog:index' %}"><strong>Home</strong> <span class="sr-only">(current)</span></a>
+      </li>&#8194;&#8194;
+
+      {% if category_menu %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            <strong>Categories</strong>
+          </a>
+          <div class="dropdown-menu">
+            {% for category in category_menu %}
+              <a class="dropdown-item" href="{% url 'blog:category' category|slugify %}">{{ category }}</a><br>
+            {% endfor %}
+            <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'blog:category-create' %}"><strong>Add Category</strong></a>
+          </div>
+        </li>
+      {% endif %}
+      &#8194;
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'blog:post-create' %}"><strong>Add Post</strong></a>
+        </li>
+
+      {% else %}
+        &#8194;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'user:register' %}">Sign up</a>
+        </li>
+        &#8194;&#8194;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'user:login' %}">Sign in</a>
+        </li>
+
+      {% endif %}
+
+    </ul>
+
+    {% if user.is_authenticated %}
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+          <strong>Hello, <em>{{ user.first_name }} {{ user.last_name }}</em></strong>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item" href="{% url 'user:edit-settings' %}">Edit Settings</a>
+          {% if user.profile.id %}
+            <a class="dropdown-item" href="{% url 'blog:detail-profile' user.profile.id %}">Show Profile</a>
+            <a class="dropdown-item" href="{% url 'user:edit-profile' user.profile.id %}">Edit Profile</a>
+          {% else %}
+            <a class="dropdown-item" href="{% url 'user:create-profile' %}">Create Profile</a>
+          {% endif %}
+          {% if user.is_staff %}
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'admin:index' %}">Admin Panel</a>
+          {% endif %}
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'user:logout' %}">Sign out</a>
+        </div>
+      </li>
+
+      <span>
+        <img src="{% if user.profile.image %}{{ user.profile.image.url }}
+             {% else %}{% static 'images/user.png' %}{% endif %}" alt=""
+             width="36" style="border-radius: 50%">
+      </span>
+
+    </ul>&#8195;&#8195;
+    {% endif %}
+
+  </div>
+</nav>
+<br>
