@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "debug_toolbar",
     "crispy_forms",
-    "crispy_bootstrap5",
+    "crispy_bootstrap4",
     "ckeditor",
     "blog",
     "user",
@@ -84,9 +84,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "blog_service.wsgi.application"
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 
-CRISPY_TEMPLATE_PACK = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 
 # Database
@@ -123,6 +123,12 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = "user.Author"
+
+LOGIN_REDIRECT_URL = "blog:index"
+
+
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
 # Internationalization

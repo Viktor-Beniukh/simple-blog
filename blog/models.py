@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -13,6 +14,10 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    @staticmethod
+    def get_absolute_url():
+        return reverse("blog:index")
 
 
 class Post(models.Model):
@@ -42,6 +47,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    @staticmethod
+    def get_absolute_url():
+        return reverse("blog:index")
 
 
 class Comment(models.Model):
