@@ -20,8 +20,10 @@
             {% for category in category_menu %}
               <a class="dropdown-item" href="{% url 'blog:category' category|slugify %}">{{ category }}</a><br>
             {% endfor %}
+            {% if user.is_authenticated %}
             <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'blog:category-create' %}"><strong>Add Category</strong></a>
+            {% endif %}
           </div>
         </li>
       {% endif %}
