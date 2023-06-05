@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-md-5"></div>
+
+        <div class="col-md-7">
+          <h1>Post List</h1>
+          <br><br>
+
+            {% for post in object_list %}
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td class="table-light">&#8195;<strong>Post title: </strong>&#8194;
+                      <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+                      <br>
+                      &#8195;<strong>Category: <em>&#8194;
+                        <a href="{% url 'blog:category' post.category|slugify %}">{{ post.category }}</a>
+                      </em></strong>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>&#8195;
+                      By: <a href="{% url 'blog:user-posts' post.author.username %}">
+                          {{ post.author.first_name }} {{ post.author.last_name }}
+                          </a>&#8194;
+                        created_at: <em>{{ post.date_created }}</em>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>&#8195;{{ post.snippet }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            {% endfor %}
+
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

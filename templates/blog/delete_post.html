@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}Delete Post{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4"></div>
+
+      <div class="col-md-8">
+
+      {% if user.is_authenticated %}
+        {% if user.id == post.author.id %}
+
+          <h1>Delete Post...</h1>
+          <br><br>
+
+          <h4>Delete: <em>{{ post.title }}</em></h4>
+          <p><strong>Are you sure?</strong></p>
+
+          <form action="" method="post">
+            {% csrf_token %}
+            <br>
+            <button  class="btn btn-danger">Delete Post</button>
+            <a href="{% url 'blog:index' %}" class="btn btn-secondary">Cancel</a>
+          </form>
+
+        {% else %}
+        <h5>You're not allowed here! &#8194;<small><em>(and you know it...)</em></small></h5>
+        {% endif %}
+
+      {% else %}
+        <h5>You're not allowed here! &#8194;<small><em>(and you know it...)</em></small></h5>
+      {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

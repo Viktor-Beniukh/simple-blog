@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-8">
+
+        {% if category_posts %}
+          <h1>Category: <em>{{ category }}</em></h1>
+          <br><br>
+
+            {% for post in category_posts %}
+              <article class="media content-section">
+                {% if post.author.id == post.author_id %}
+                  <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" alt="">
+                {% else %}
+                  <img class="rounded-circle article-img" src="/media/default.jpg" alt="">
+                {% endif %}
+                <div class="media-body">
+                  <div class="article-metadata">
+                    By: <a class="mr-2" href="{% url 'blog:detail-profile' pk=post.author.profile.id %}">{{ post.author.first_name }} {{ post.author.last_name }}</a> -
+                    &#8195;<small class="text-muted"><em>{{ post.date_created }}</em></small>
+                  </div>
+                  <a href="{% url 'blog:post-detail' pk=post.id %}">
+                    <h2 class="article-title">{{ post.title }}</h2>
+                  </a>
+                  <p class="article-content">{{ post.content|safe }}</p>
+                </div>
+              </article>
+            {% endfor %}
+
+        {% else %}
+          <h2>Sorry this page does not exist...</h2>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

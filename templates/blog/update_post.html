@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}Edit Post{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4"></div>
+
+      <div class="col-md-8">
+
+      {% if user.is_authenticated %}
+        {% if user.id == post.author.id %}
+
+          <h1>Edit Post...</h1>
+          <br><br>
+
+          <form action="" method="post">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form|crispy }}
+            <button  class="btn btn-secondary">Edit Post</button>
+          </form>
+
+        {% else %}
+          <h5>You're not allowed here! &#8194;<small><em>(and you know it...)</em></small></h5>
+        {% endif %}
+
+      {% else %}
+        <h5>You're not allowed here! &#8194;<small><em>(and you know it...)</em></small></h5>
+      {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

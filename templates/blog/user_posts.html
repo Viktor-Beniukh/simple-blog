@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4"></div>
+
+      <div class="col-md-8">
+
+        <h1 class="mb-3">
+          User records: <em><u>{{ view.kwargs.username }}</u>
+          ({{ page_obj.paginator.count }} post{{ page_obj.paginator.count|pluralize }})</em>
+        </h1>
+        <br>
+
+        {% for post in posts %}
+            <article class="media content-section">
+              <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" alt="">
+              <div class="media-body">
+                <div class="article-metadata">
+                  By: <a class="mr-2" href="{% url 'blog:detail-profile' pk=post.author.profile.id %}">
+                    {{ post.author.first_name }} {{ post.author.last_name }}
+                  </a>
+                  &#8195;<small class="text-muted"><em>{{ post.date_created }}</em></small>
+                </div>
+                <h2><a class="article-title" href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h2>
+                <p class="article-content">{{ post.content|safe }}</p>
+              </div>
+            </article>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

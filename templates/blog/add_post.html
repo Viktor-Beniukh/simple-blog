@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}Create A New Post{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4"></div>
+
+      <div class="col-md-8">
+      {% if user.is_authenticated %}
+        {% if user.profile %}
+        <h1>Add Post...</h1>
+        <br>
+
+        <form action="" method="post">
+          {% csrf_token %}
+          {{ form.media }}
+          {{ form|crispy }}
+          <button  class="btn btn-secondary">Add Post</button>
+        </form>
+        {% else %}
+          <h5>You're not allowed here! <small><em>(and you know it...)</em></small></h5>
+          <h6 style="color: darkred"><em>...You must create your profile!..</em></h6>
+
+        {% endif %}
+      {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
