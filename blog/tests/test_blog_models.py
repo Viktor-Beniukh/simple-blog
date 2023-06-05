@@ -25,23 +25,23 @@ class PostModelTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        author = get_user_model().objects.create_user(
+        cls.author = get_user_model().objects.create_user(
             username="TestUser",
             password="user12345"
         )
-        category = Category.objects.create(name="Programming")
+        cls.category = Category.objects.create(name="Programming")
 
-        Post.objects.create(
-            author=author, category=category, title="About Django"
+        cls.post = Post.objects.create(
+            author=cls.author, category=cls.category, title="About Django"
         )
 
     def test_post_str(self):
-        post = Post.objects.get(id=1)
+        post = self.post
 
         self.assertEqual(str(post), f"{post.title}")
 
     def test_get_absolute_url(self):
-        post = Post.objects.get(id=1)
+        post = self.post
 
         self.assertEqual(post.get_absolute_url(), "/blog/")
 
